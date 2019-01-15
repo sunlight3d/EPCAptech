@@ -14,24 +14,24 @@ typedef struct{
 void inputMobile(Mobile *mobile, int n){
 	int i;
 	for(i=0; i<n; i++){
-		printf("Please input Mobile[%d]: \n",i+1);
+		printf("\nPlease input Mobile[%d]:",i+1);
 		printf("Name: ");
 		gets(mobile[i].name);
 		
-		printf("Manufacturer: ");
+		printf("\nManufacturer: ");
 		gets(mobile[i].manufacturer);
 		
-		INPUT1: printf("Release Year: ");
+		INPUT1: printf("\nRelease Year: ");
 		scanf("%d",&mobile[i].release_year);
 		if(mobile[i].release_year < 1999){
-			printf("Mobile release year must be greater than or equal to 1999");
+			printf("\nMobile release year must be greater than or equal to 1999");
 			goto INPUT1;
 		}
 		
-		INPUT2: printf("Price: ");
+		INPUT2: printf("\nPrice: ");
 		scanf("%f",&mobile[i].price);
 		if(mobile[i].price < 500 || mobile[i].price > 6000){
-			printf("Mobile price must be between 500($) and 6000($)");
+			printf("\nMobile price must be between 500($) and 6000($)");
 			goto INPUT2;
 		}
 		fflush(stdin);
@@ -80,12 +80,12 @@ void findMobiles(Mobile *mobiles, char manufacturer[25], float min, float max, i
 int main(int argc, char** argv) {
 	Mobile *mobiles;
 	int n;
-	printf("+-----------------------------------------------------\n");
+	START: printf("+-----------------------------------------------------\n");
 	printf("|         MOBILE PHONE STORE MANAGEMENT PROGRAM      |\n");
 	printf("|1.Input|2.Sort|3.Analyze|4.Find|5.Save|6.Open|7.Exit|\n");
 	printf("+-----------------------------------------------------\n");
 	int choice;
-	START: printf("\nEnter your choice: ");
+	printf("\nEnter your choice: ");
    	scanf("%d", &choice);
 	switch(choice) {
       case 1 :
@@ -99,20 +99,23 @@ int main(int argc, char** argv) {
         listMobiles(mobiles, n);
         break;
       case 4 :
-      	printf("Search mobiles: \n");	
+      	printf("\nSearch mobiles:");	
       	char manufacturer[25];
       	float min;
       	float max;
-		printf("Manufacture: "); gets(manufacturer);
-		printf("\nMin price($): "); scanf("%f",&min);
-		printf("\nMax price($): "); scanf("%f",&max);
+		printf("\nManufacture: "); 
+		gets(manufacturer);
+		printf("\nMin price($): "); 
+		scanf("%f",&min);
+		printf("\nMax price($): "); 
+		scanf("%f",&max);
         findMobiles(mobiles, manufacturer, min, max, n);
         break;
     
       default :
-         printf("Invalid choice, choose 1-7\n" );
+         printf("\nInvalid choice, choose 1-7\n" );
    	}
-   	printf("Do you want to continue?");
+   	printf("\nDo you want to continue?");
    	char choice2;
    	scanf(" %c", &choice2);
    	if( choice2 == 'y' || choice2 == 'Y'){
