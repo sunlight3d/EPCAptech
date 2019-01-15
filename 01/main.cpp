@@ -22,18 +22,18 @@ void inputMobile(Mobile *mobile, int n){
 		gets(mobile[i].manufacturer);
 		
 		INPUT1: printf("Release Year: ");
+		scanf("%d",&mobile[i].release_year);
 		if(mobile[i].release_year < 1999){
 			printf("Mobile release year must be greater than or equal to 1999");
 			goto INPUT1;
 		}
-		scanf("%d",&mobile[i].release_year);
 		
 		INPUT2: printf("Price: ");
+		scanf("%f",&mobile[i].price);
 		if(mobile[i].price < 500 || mobile[i].price > 6000){
 			printf("Mobile price must be between 500($) and 6000($)");
 			goto INPUT2;
 		}
-		scanf("%f",&mobile[i].price);
 		fflush(stdin);
 	}
 }
