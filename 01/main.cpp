@@ -59,17 +59,19 @@ void listMobiles(Mobile *mobiles, int n){
 		j++;
 	}
 }
-void saveToFile(FILE *file, Mobile *mobiles, int n){
+
+void saveToFile(FILE *fptr, Mobile *mobiles, int n){
 	int j = 0;			
-	fwrite(&mobiles, sizeof(struct Mobi), 1, fptr);		
-	file.close();	
+	fwrite(mobiles, sizeof(Mobile), n, fptr);		
+	fclose(fptr); 	
 }
+/*
 void readFromFile(FILE *file, Mobile *mobiles, int n){
 	int j = 0;			
 	fwrite(&mobiles, sizeof(struct Mobi), 1, fptr);		
 	file.close();	
 }
-
+*/
 void analyzeMobiles(Mobile *mobiles, int n){
 	int j = 0;
 	printf("+-----------------------------------------------------\n");
@@ -125,13 +127,15 @@ int main(int argc, char** argv) {
       case 5 :
       	char fileName[50];
         printf("Save the list into file: ");
-		gets(fileName);
+		scanf("%s",fileName);
 		FILE *fptr;
 		fptr = fopen(fileName,"wb");
 		if(fptr == NULL) {
 			printf("Error reading file");
 			exit(1);
+			break;
 		}
+		saveToFile(fptr, mobiles, n);
         break;
     
       default :
