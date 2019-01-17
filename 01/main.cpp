@@ -59,6 +59,17 @@ void listMobiles(Mobile *mobiles, int n){
 		j++;
 	}
 }
+void saveToFile(FILE *file, Mobile *mobiles, int n){
+	int j = 0;			
+	fwrite(&mobiles, sizeof(struct Mobi), 1, fptr);		
+	file.close();	
+}
+void readFromFile(FILE *file, Mobile *mobiles, int n){
+	int j = 0;			
+	fwrite(&mobiles, sizeof(struct Mobi), 1, fptr);		
+	file.close();	
+}
+
 void analyzeMobiles(Mobile *mobiles, int n){
 	int j = 0;
 	printf("+-----------------------------------------------------\n");
@@ -110,6 +121,17 @@ int main(int argc, char** argv) {
 		printf("\nMax price($): "); 
 		scanf("%f",&max);
         findMobiles(mobiles, manufacturer, min, max, n);
+        break;
+      case 5 :
+      	char fileName[50];
+        printf("Save the list into file: ");
+		gets(fileName);
+		FILE *fptr;
+		fptr = fopen(fileName,"wb");
+		if(fptr == NULL) {
+			printf("Error reading file");
+			exit(1);
+		}
         break;
     
       default :
