@@ -65,13 +65,13 @@ void saveToFile(FILE *fptr, Mobile *mobiles, int n){
 	fwrite(mobiles, sizeof(Mobile), n, fptr);		
 	fclose(fptr); 	
 }
-/*
-void readFromFile(FILE *file, Mobile *mobiles, int n){
-	int j = 0;			
-	fwrite(&mobiles, sizeof(struct Mobi), 1, fptr);		
-	file.close();	
+
+void readFromFile(FILE *fptr, Mobile *mobiles, int n){			
+	fread(mobiles, sizeof(Mobile), n, fptr);	 
+	listMobiles(mobiles, n);
+	fclose(fptr);	
 }
-*/
+
 void analyzeMobiles(Mobile *mobiles, int n){
 	int j = 0;
 	printf("+-----------------------------------------------------\n");
@@ -92,7 +92,10 @@ void findMobiles(Mobile *mobiles, char manufacturer[25], float min, float max, i
 }
 int main(int argc, char** argv) {
 	Mobile *mobiles;
+	char fileName[50];
 	int n;
+	FILE *fptr;
+	
 	START: printf("+-----------------------------------------------------\n");
 	printf("|         MOBILE PHONE STORE MANAGEMENT PROGRAM      |\n");
 	printf("|1.Input|2.Sort|3.Analyze|4.Find|5.Save|6.Open|7.Exit|\n");
@@ -125,10 +128,8 @@ int main(int argc, char** argv) {
         findMobiles(mobiles, manufacturer, min, max, n);
         break;
       case 5 :
-      	char fileName[50];
         printf("Save the list into file: ");
 		scanf("%s",fileName);
-		FILE *fptr;
 		fptr = fopen(fileName,"wb");
 		if(fptr == NULL) {
 			printf("Error reading file");
@@ -137,7 +138,17 @@ int main(int argc, char** argv) {
 		}
 		saveToFile(fptr, mobiles, n);
         break;
-    
+      case 6 :
+        printf("Open file: ");
+		scanf("%s",fileName);
+		fptr = fopen(fileName,"rb");
+		if(fptr == NULL) {
+			printf("Error reading file");
+			exit(1);
+			break;
+		}
+		readFromFile(fptr, mobiles, n);
+        break;
       default :
          printf("\nInvalid choice, choose 1-7\n" );
    	}
